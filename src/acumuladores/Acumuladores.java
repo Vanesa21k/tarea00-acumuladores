@@ -14,7 +14,21 @@ public class Acumuladores {
 	 * @return
 	 */
 	public boolean todosMultiplosEnAlgunaFila(int[][] mat, int num) { 
-		throw new RuntimeException("Metodo no implementado aun!!!");
+		if(mat.length==0 || num<1) {
+			return false;
+		}
+		boolean ret=false;
+		for(int fila=0; fila<mat.length; fila++) {
+			ret|= todosElemMultiplos(mat[fila],num);
+		}
+		return ret;
+	}
+	private boolean todosElemMultiplos(int[] arr,int num) {
+		boolean ret=true;
+		for(int elem=0; elem<arr.length; elem++) {
+			ret&= arr[elem]%num==0;
+		}
+		return ret;
 	}
 	
 	/**
@@ -29,7 +43,23 @@ public class Acumuladores {
 	 * @return
 	 */
 	public boolean hayInterseccionPorFila(int[][] mat1, int[][]mat2) { 
-		throw new RuntimeException("Metodo no implementado aun!!!");
+		if(mat1.length==0 || mat2.length==0 || mat1.length!=mat2.length) {
+			return false;
+		}
+		boolean ret=true;
+		for(int fila=0; fila<mat1.length; fila++) {
+			ret&= interseccion(mat1[fila], mat2[fila]);
+		}
+		return ret;
+	}
+	private boolean interseccion(int[] arr1, int[] arr2) {
+		boolean ret=false;
+		for(int elem=0; elem<arr1.length; elem++) {
+			for(int elem2=0; elem2<arr2.length; elem2++) {
+				ret|= arr1[elem]==arr2[elem2];
+			}
+		}
+		return ret;
 	}
 	
 	/**
@@ -45,7 +75,29 @@ public class Acumuladores {
 	 * @return
 	 */
 	public boolean algunaFilaSumaMasQueLaColumna(int[][] mat, int nColum) { 
-		throw new RuntimeException("Metodo no implementado aun!!!");
+		if(mat.length==0 || nColum>=mat[0].length || nColum<0) {
+			return false;
+		}
+		boolean ret=false;
+		int sumaCol= sumaColumna(mat,nColum);
+		for(int fila=0; fila<mat.length; fila++) {
+			ret|= sumaFila(mat[fila]) > sumaCol;
+		}
+		return ret;
+	}
+	private int sumaColumna(int[][] mat,int nColum) {
+		int suma=0;
+		for(int fila=0; fila<mat.length; fila++) {
+			suma+=mat[fila][nColum];
+		}
+		return suma;
+	}
+	private int sumaFila(int[] arr) {
+		int suma=0;
+		for(int elem=0; elem<arr.length; elem++) {
+			suma+=arr[elem];
+		}
+		return suma;
 	}
 	
 	/**
@@ -60,6 +112,22 @@ public class Acumuladores {
 	 * @return
 	 */
 	public boolean hayInterseccionPorColumna(int[][] mat1, int[][]mat2) { 
-		throw new RuntimeException("Metodo no implementado aun!!!");
+		if(mat1.length==0 || mat2.length==0 || mat1[0].length!=mat2[0].length ) {
+			return false;
+		}
+		boolean ret=true;
+		for(int columna=0; columna<mat1[0].length; columna++) {
+			ret&= interseccionColum(mat1,mat2,columna);
+		}
+		return ret;
+	}
+	private boolean interseccionColum(int[][] mat1, int[][] mat2, int columna) {
+		boolean ret=false;
+		for(int i=0; i<mat1.length; i++) {
+			for(int j=0; j<mat2.length; j++) {
+				ret|=mat1[i][columna]==mat2[j][columna];
+			}
+		}
+		return ret;
 	}
 }
